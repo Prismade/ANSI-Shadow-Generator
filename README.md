@@ -10,13 +10,16 @@ asg [option] <text>
 
 OPTIONS
 
-  -h, --help           display help and exit
+  -h, --help           Display help and exit
 
-  -v, --version        display version information and exit
+  -v, --version        Display version information and exit
 
   -c<value>, --center=<value>
-                       centers text inside the line of <value> characters (defaults to 120 if no value was passed, max is 240)
+                       Centers text inside the line of <value> characters and wraps it with decoration string (defaults to 120 if no value was passed, max is 240, default decoration string is '#'. You can change it with -d/--decoration option.)
 
-  <text>               any ASCII text (Unicode is not supported as of now) not longer than 32 characters
+  -d<value>, --decoration=<value>
+                       Sets custon decoration symbol when centering text. Max length is 4.
+
+  <text>               Any ASCII text (Unicode is not supported as of now) not longer than 32 characters
 
 ```

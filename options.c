@@ -10,6 +10,7 @@
 
 const size_t maxtlen = 32;
 const size_t maxllen = 240;
+const size_t defaultllen = 120;
 const char short_options[] = "hvc::";
 const struct option long_options[] = {
     {"help", no_argument, NULL, 'h'},
@@ -21,7 +22,7 @@ const struct option long_options[] = {
 struct asg_options parseopts(int argc, char *argv[]) {
     int opt = 0;
     bool center = false;
-    size_t linelen = 120;
+    size_t linelen = defaultllen;
 
     while ((opt = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
         switch (opt) {
@@ -32,7 +33,7 @@ struct asg_options parseopts(int argc, char *argv[]) {
             printf("%-24s %s\n\n", "  -h, --help", "display this help and exit");
             printf("%-24s %s\n\n", "  -v, --version", "display version information and exit");
             printf("%s\n", "  -c<value>, --center=<value>");
-            printf("\t\t\t %s\n\n", "centers text inside the line of <value> characters (defaults to 120 if no value was passed, max is 240)");
+            printf("\t\t\t %s%zu%s%zu%s\n\n", "centers text inside the line of <value> characters (defaults to ", defaultllen, " if no value was passed, max is ", maxllen, ")");
             printf("%-24s %s%zu%s\n\n", "<text>", "Any ASCII text (Unicode is not supported as of now) not longer than ", maxtlen, " characters");
             exit(EXIT_SUCCESS);
         case 'v':

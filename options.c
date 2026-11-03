@@ -10,12 +10,15 @@
 
 const size_t maxtlen = 32;
 const size_t maxllen = 240;
+const size_t maxdlen = 4;
 const size_t defaultllen = 120;
-const char short_options[] = "hvc::";
+
+const char short_options[] = "hvc::d:";
 const struct option long_options[] = {
     {"help", no_argument, NULL, 'h'},
     {"version", no_argument, NULL, 'v'},
     {"center", optional_argument, NULL, 'c'},
+    {"decoration", required_argument, NULL, 'd'},
     {NULL, 0, NULL, 0}
 };
 
@@ -23,6 +26,8 @@ struct asg_options parseopts(int argc, char *argv[]) {
     int opt = 0;
     bool center = false;
     size_t linelen = defaultllen;
+    char *decorstr = NULL;
+    size_t decorstrlen = 0;
 
     while ((opt = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
         switch (opt) {
@@ -49,7 +54,7 @@ struct asg_options parseopts(int argc, char *argv[]) {
                 size_t optarg_int = atoi(optarg);
                 if (optarg_int > 0) {
                     if (optarg_int > maxllen) {
-                        fprintf(stderr, "Value \'%s\" for option -c is too big. Max is 240.\n", optarg);
+                        fprintf(stderr, "Value \'%s\" for option -c is too big. Max is %zu.\n", optarg, maxllen);
                         exit(EXIT_FAILURE);
                     }
                     linelen = optarg_int;
@@ -59,9 +64,33 @@ struct asg_options parseopts(int argc, char *argv[]) {
                 }
             }
             break;
+        case 'd':
+            center = true;
+            if (optarg == NULL) {
+                fprintf(stderr, "No value provided for option -d\n");
+                exit(EXIT_FAILURE);
+            }
+            size_t optarglen = strlen(optarg);
+            if (optarglen > maxdlen) {
+                fprintf(stderr, "Decoration string length is too big. Max is %zu.\n", maxdlen);
+                exit(EXIT_FAILURE);
+            }
+            decorstr = strdup(optarg);
+            if (decorstr == NULL) {
+                fprintf(stderr, "Failed to allocate memory for decoration copy\n");
+                exit(EXIT_FAILURE);
+            }
+            decorstrlen = optarglen;
+            break;
         default:
             exit(EXIT_FAILURE);
         }
+    }
+
+    if (center && decorstr == NULL) {
+        decorstr = calloc(2, sizeof(char));
+        decorstr[0] = '#';
+        decorstrlen = 1;
     }
 
     if (optind < argc) {
@@ -86,7 +115,9 @@ struct asg_options parseopts(int argc, char *argv[]) {
                 .str = textstr,
                 .len = textstrlen,
                 .center = center,
-                .boundsw = linelen
+                .boundsw = linelen,
+                .decorstr = decorstr,
+                .decorstrlen = decorstrlen
             };
             return options;
         }

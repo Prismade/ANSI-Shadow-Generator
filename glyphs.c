@@ -193,3 +193,4 @@ const char **chtogl(char c) {
         return GLYPH_UNKNOWN;
     }
 }
+

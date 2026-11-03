@@ -66,3 +66,4 @@ extern const char *GLYPH_UNKNOWN[];
 extern const short GLYPH_HEIGHT;
 
 const char **chtogl(char c);
+

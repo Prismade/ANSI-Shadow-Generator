@@ -12,6 +12,7 @@ const size_t maxtlen = 32;
 const size_t maxllen = 240;
 const size_t maxdlen = 4;
 const size_t defaultllen = 120;
+const char defaultdecor = '#';
 
 const char short_options[] = "hvc::d:";
 const struct option long_options[] = {
@@ -89,7 +90,7 @@ struct asg_options parseopts(int argc, char *argv[]) {
 
     if (center && decorstr == NULL) {
         decorstr = calloc(2, sizeof(char));
-        decorstr[0] = '#';
+        decorstr[0] = defaultdecor;
         decorstrlen = 1;
     }
 

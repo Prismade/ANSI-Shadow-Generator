@@ -36,10 +36,12 @@ struct asg_options parseopts(int argc, char *argv[]) {
             printf("%s %s\n\n", APP_NAME, APP_VERSION);
             printf("USAGE: %s [option] <text>\n\n", APP_NAME);
             printf("OPTIONS:\n");
-            printf("%-24s %s\n\n", "  -h, --help", "display this help and exit");
-            printf("%-24s %s\n\n", "  -v, --version", "display version information and exit");
+            printf("%-24s %s\n\n", "  -h, --help", "Display this help and exit");
+            printf("%-24s %s\n\n", "  -v, --version", "Display version information and exit");
             printf("%s\n", "  -c<value>, --center=<value>");
-            printf("\t\t\t %s%zu%s%zu%s\n\n", "centers text inside the line of <value> characters (defaults to ", defaultllen, " if no value was passed, max is ", maxllen, ")");
+            printf("\t\t\t %s%zu%s%zu%s%c%s\n\n", "Centers text inside the line of <value> characters and wraps it with decoration string (line length defaults to ", defaultllen, " if no value was passed, max is ", maxllen, ", default decoration string is '", defaultdecor, "'. You can change it with -d/--decoration option.)");
+            printf("%s\n", "  -d<value>, --decoration=<value>");
+            printf("\t\t\t %s%zu%s\n\n", "Sets custon decoration symbol when centering text. Max length is ", maxdlen, ".");
             printf("%-24s %s%zu%s\n\n", "<text>", "Any ASCII text (Unicode is not supported as of now) not longer than ", maxtlen, " characters");
             exit(EXIT_SUCCESS);
         case 'v':

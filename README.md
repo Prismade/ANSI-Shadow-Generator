@@ -6,7 +6,17 @@ Inspired by Tsoding's recreational programming sessions I decided to make a smal
 
 ### Usage: 
 ```
-asg PHRASE
-```
+asg [option] <text>
 
-Where *PHRASE* is a text that is not longer than 32 symbols (no Unicode as of now).
+OPTIONS
+
+  -h, --help           display help and exit
+
+  -v, --version        display version information and exit
+
+  -c<value>, --center=<value>
+                       centers text inside the line of <value> characters (defaults to 120 if no value was passed, max is 240)
+
+  <text>               any ASCII text (Unicode is not supported as of now) not longer than 32 characters
+
+```

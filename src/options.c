@@ -23,11 +23,11 @@ const struct option long_options[] = {
     {NULL, 0, NULL, 0}
 };
 
-struct asg_options parseopts(int argc, char *argv[]) {
+struct asg_options parseopts(int argc, char * argv[]) {
     int opt = 0;
     bool center = false;
     size_t linelen = defaultllen;
-    char *decorstr = NULL;
+    char * decorstr = NULL;
     size_t decorstrlen = 0;
 
     while ((opt = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
@@ -41,7 +41,7 @@ struct asg_options parseopts(int argc, char *argv[]) {
             printf("%s\n", "  -c<value>, --center=<value>");
             printf("\t\t\t %s%zu%s%zu%s%c%s\n\n", "Centers text inside the line of <value> characters and wraps it with decoration string (line length defaults to ", defaultllen, " if no value was passed, max is ", maxllen, ", default decoration string is '", defaultdecor, "'. You can change it with -d/--decoration option.)");
             printf("%s\n", "  -d<value>, --decoration=<value>");
-            printf("\t\t\t %s%zu%s\n\n", "Sets custon decoration symbol when centering text. Max length is ", maxdlen, ".");
+            printf("\t\t\t %s%zu%s\n\n", "Sets custom decoration symbol when centering text. Max length is ", maxdlen, ".");
             printf("%-24s %s%zu%s\n\n", "<text>", "Any ASCII text (Unicode is not supported as of now) not longer than ", maxtlen, " characters");
             exit(EXIT_SUCCESS);
         case 'v':
@@ -104,7 +104,7 @@ struct asg_options parseopts(int argc, char *argv[]) {
                 exit(EXIT_FAILURE);
             }
 
-            char *textstr = strdup(argv[optind]);
+            char * textstr = strdup(argv[optind]);
             if (textstr == NULL) {
                 fprintf(stderr, "Failed to allocate memmory for text copy\n");
                 exit(EXIT_FAILURE);
@@ -129,4 +129,3 @@ struct asg_options parseopts(int argc, char *argv[]) {
     fprintf(stderr, "No text provided\n");
     exit(EXIT_FAILURE);
 }
-

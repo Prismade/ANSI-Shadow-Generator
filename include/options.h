@@ -5,9 +5,8 @@ struct asg_options {
     size_t boundsw;
     size_t len;
     size_t decorstrlen;
-    char *str;
-    char *decorstr;
+    char * str;
+    char * decorstr;
 };
 
-struct asg_options parseopts(int argc, char *argv[]);
-
+struct asg_options parseopts(int argc, char * argv[]);

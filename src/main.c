@@ -6,7 +6,7 @@
 #include "options.h"
 #include "glyphs.h"
 
-size_t ustrlen(const char *str) {
+size_t ustrlen(const char * str) {
     size_t count = 0;
     while (*str != '\0') {
         if ((*str & 0xC0) != 0x80) {
@@ -17,12 +17,12 @@ size_t ustrlen(const char *str) {
     return count;
 }
 
-void printbounds(const struct asg_options *options) {
+void printbounds(const struct asg_options * options) {
     size_t cycles = options->boundsw / options->decorstrlen;
     for (size_t i = 0; i < cycles; i += 1) {
         printf("%s", options->decorstr);
     }
-    int remchs = options->boundsw % options->decorstrlen; 
+    int remchs = options->boundsw % options->decorstrlen;
     if (remchs != 0) {
         printf("%.*s\n", remchs, options->decorstr);
     } else {
@@ -30,10 +30,10 @@ void printbounds(const struct asg_options *options) {
     }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char * argv[]) {
     const struct asg_options options = parseopts(argc, argv);
 
-    const char **res[options.len];
+    const char ** res[options.len];
     size_t reslen = 0;
     for (size_t i = 0; i < options.len; i += 1) {
         res[i] = chtogl(options.str[i]);
@@ -41,7 +41,8 @@ int main(int argc, char *argv[]) {
     }
 
     int padding = 0;
-    int emptylnw = options.boundsw - options.decorstrlen * 2;;
+    int emptylnw = options.boundsw - options.decorstrlen * 2;
+    ;
     if (options.center && reslen < options.boundsw) {
         int freesp = options.boundsw - reslen - options.decorstrlen * 2;
         if (freesp % 2 != 0) {
@@ -76,4 +77,3 @@ int main(int argc, char *argv[]) {
 
     return EXIT_SUCCESS;
 }
-
